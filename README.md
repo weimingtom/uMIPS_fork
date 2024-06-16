@@ -6,6 +6,36 @@
 * LinuxCard2.7z  
 * disk_can_boot_no_ext4_LinuxCard2.tar.gz  
 * (TODO) disk_can_boot_no_ext4_mkdisk.sh.txt  
+```
+#!/bin/bash
+sudo rm -rf disk disktemp /mnt/1
+sudo mkdir /mnt/1
+##dd if=/dev/zero of=disk bs=1M count=128
+dd if=mbrboot/loader.bin of=disk bs=446 count=1 conv=notrunc 2>/dev/null
+dd if=loader/loader.bin of=disk bs=512 seek=1 count=15 conv=notrunc 2>/dev/null
+sudo losetup -o 16384 --sizelimit 16777216  /dev/loop0 disk
+#8192
+#1048576
+#32 * 512 = 16384
+
+#sudo losetup -o 16793600 --sizelimit 50323456  /dev/loop0 disk
+
+
+sudo mkfs.vfat -F 16 /dev/loop0
+#sudo fdisk /dev/loop0
+sudo mount -t vfat /dev/loop0 /mnt/1
+#
+echo end_fdisk
+sudo sync
+sudo cp vmlinux /mnt/1
+sudo sync
+sudo umount /mnt/1
+sudo losetup -d /dev/loop0
+sync
+echo done
+
+#sudo ./emu/uMIPS ./romboot/loader.bin ./disk_s
+```
 
 ## toolchain  
 * (?) Codescape.GNU.Tools.Package.2020.06-01.for.MIPS.MTI.Linux.CentOS-6.x86_64.tar.gz  
@@ -38,7 +68,6 @@ My business card runs Linux），就好像没多少参考的资料了，
 ```
 ```
 uMIPS研究，有点头绪了，暂时可以把vmlinux跑起来，
-
 但ext4文件系统缺少所以没办法busybox，后续想办法。
 这东西的思路是这样，三个分区，第二分区fat16用于加载vmlinux文件，
 第三分区则是ext4。如果要跑通比较麻烦，因为无法适应fdisk生成的分区表信息，
