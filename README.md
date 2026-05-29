@@ -6,6 +6,7 @@
 * LinuxCard2.7z  
 * disk_can_boot_no_ext4_LinuxCard2.tar.gz  
 * (TODO) disk_can_boot_no_ext4_mkdisk.sh.txt  
+* see also https://github.com/weimingtom/uMIPS_fork/blob/master/disk_can_boot_no_ext4_mkdisk.sh.txt  
 ```
 #!/bin/bash
 sudo rm -rf disk disktemp /mnt/1
