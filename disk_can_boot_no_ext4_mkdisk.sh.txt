@@ -1,0 +1,104 @@
+三分区信息是强行用ultraedit写入到01BE地址后面的64字节内（参考linux.busybox文件的mbr内容）
+结束标志字0x55，0xAA（偏移1FEH－偏移1FFH）之前
+
+不能用sudo fdisk disk操作，原因是fdisk只会创建一个偏移1M的FAT16分区
+
+----------------------------------------
+https://zh.wikipedia.org/wiki/主引导记录
+
+標準MBR結構
+位址	描述	長度
+（位元組）
+Hex	Oct	Dec
+0000	0000	0	代码区	440
+（最大446）
+01B8	0670	440	選用磁碟標誌	4
+01BC	0674	444	一般為空值; 0x0000	2
+01BE	0676	446	标准MBR分区表规划
+（四个16 byte的主分区表入口）	64
+01FE	0776	510	55h	MBR有效标志：
+0x55AA	2
+01FF	0777	511	AAh
+MBR，總大小：446 + 64 + 2 =	512
+
+硬盘分区表
+硬盘分区结构信息
+偏移	长度（字节）	意义
+00H	1	分区状态：00-->非活动分区；80-->活动分区；
+其它数值没有意义
+01H	1	分区起始磁头号（HEAD），用到全部8位
+02H	2	分区起始扇区号（SECTOR），占据02H的位0－5；
+该分区的起始磁柱号（CYLINDER），占据
+02H的位6－7和03H的全部8位
+04H	1	文件系统标志位
+05H	1	分区结束磁头号（HEAD），用到全部8位
+06H	2	分区结束扇区号（SECTOR），占据06H的位0－5；
+该分区的结束磁柱号（CYLINDER），占据
+06H的位6－7和07H的全部8位
+08H	4	分区起始相对扇区号
+0CH	4	分区总的扇区数
+----------------------------------------
+
+
+然后根据fdisk disk（p命令）获取（共三分区）第二分区start和length，然后乘以512获取偏移和长度
+sudo losetup -o 16384 --sizelimit 16777216  /dev/loop0 disk
+
+然后mkfs.vfat格式化第二分区（必须是FAT16）
+sudo mkfs.vfat -F 16 /dev/loop0
+sudo mount -t vfat /dev/loop0 /mnt/1
+sudo cp vmlinux /mnt/1
+sudo umount /mnt/1
+sudo losetup -d /dev/loop0
+
+但第三分区未处理
+
+
+
+常用命令工具：
+file disk
+sudo fdisk disk
+sudo losetup -o 16384 --sizelimit 16777216  /dev/loop0 disk
+sudo losetup -d /dev/loop0
+sudo mount -t vfat /dev/loop0 /mnt/1
+sudo umount /mnt/1
+
+
+启动模拟器：
+sudo ./emu/uMIPS ./romboot/loader.bin ./disk
+
+
+
+
+
+
+
+----------------
+
+#!/bin/bash
+sudo rm -rf disk disktemp /mnt/1
+sudo mkdir /mnt/1
+##dd if=/dev/zero of=disk bs=1M count=128
+dd if=mbrboot/loader.bin of=disk bs=446 count=1 conv=notrunc 2>/dev/null
+dd if=loader/loader.bin of=disk bs=512 seek=1 count=15 conv=notrunc 2>/dev/null
+sudo losetup -o 16384 --sizelimit 16777216  /dev/loop0 disk
+#8192
+#1048576
+#32 * 512 = 16384
+
+#sudo losetup -o 16793600 --sizelimit 50323456  /dev/loop0 disk
+
+
+sudo mkfs.vfat -F 16 /dev/loop0
+#sudo fdisk /dev/loop0
+sudo mount -t vfat /dev/loop0 /mnt/1
+#
+echo end_fdisk
+sudo sync
+sudo cp vmlinux /mnt/1
+sudo sync
+sudo umount /mnt/1
+sudo losetup -d /dev/loop0
+sync
+echo done
+
+#sudo ./emu/uMIPS ./romboot/loader.bin ./disk_s
