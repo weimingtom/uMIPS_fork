@@ -38,6 +38,16 @@ echo done
 #sudo ./emu/uMIPS ./romboot/loader.bin ./disk_s
 ```
 
+## Readme and Download
+* https://dmitry.gr/?r=05.Projects&proj=33.%20LinuxCard
+``` 
+make CPU=pc
+./uMIPS ../romboot/loader.bin ../disk.wheezy
+```
+* https://dmitry.gr/images/LinuxCard2.7z?v=220
+* https://mega.nz/file/p9ZWzLrK#saRKVlgBthOFE4Cp-6sb2fMTM7JXtuXMlsYQaaWrEAI
+* https://drive.google.com/file/d/14fhdW4Vdz4-ZKucB-iIP4MLTk8OLB7dI/view?usp=sharing
+
 ## toolchain  
 * (?) Codescape.GNU.Tools.Package.2020.06-01.for.MIPS.MTI.Linux.CentOS-6.x86_64.tar.gz  
 
