@@ -66,6 +66,9 @@ make CPU=pc
 * https://mega.nz/file/p9ZWzLrK#saRKVlgBthOFE4Cp-6sb2fMTM7JXtuXMlsYQaaWrEAI  
 * https://drive.google.com/file/d/14fhdW4Vdz4-ZKucB-iIP4MLTk8OLB7dI/view?usp=sharing  
 * Same as upper 'Readme and Download'  
+* see also https://github.com/ElectroBoy404NotFound/pico-uMIPS  
+* https://github.com/weimingtom/pico-uMIPS
+* https://github.com/weimingtom/uMIPS
 
 ## Removed files  
 * kernel/vmlinux  
