@@ -39,7 +39,7 @@ echo done
 ```
 
 ## (IMP) Readme and Download, same as below 'Ref'
-* backup, see LinuxCard/Original Publication/source/disk  
+* Backup 'disk' file under LinuxCard/Original Publication/source/disk  
 disk_can_boot_no_ext4.7z/disk_can_boot_no_ext4 is same as  
 disk_can_boot_no_ext4_LinuxCard2.tar.gz/LinuxCard/Original Publication/source/disk   
 ```
