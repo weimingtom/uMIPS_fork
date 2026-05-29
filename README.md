@@ -42,6 +42,9 @@ echo done
 * Backup 'disk' file under LinuxCard/Original Publication/source/disk  
 disk_can_boot_no_ext4.7z/disk_can_boot_no_ext4 is same as  
 disk_can_boot_no_ext4_LinuxCard2.tar.gz/LinuxCard/Original Publication/source/disk   
+See also https://github.com/weimingtom/uMIPS_fork/releases/tag/v0.0.1  
+Disk file see also https://github.com/weimingtom/uMIPS_fork/releases/download/v0.0.1/disk_can_boot_no_ext4.7z  
+Work folder see also https://github.com/weimingtom/uMIPS_fork/releases/download/v0.0.1/disk_can_boot_no_ext4_LinuxCard2.tar.gz   
 ```
 sudo apt install libsdl2-dev
 xubuntu200464_umips
