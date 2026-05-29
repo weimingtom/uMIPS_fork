@@ -39,6 +39,13 @@ echo done
 ```
 
 ## (IMP) Readme and Download, same as below 'Ref'
+* backup, see LinuxCard/Original Publication/source/disk  
+disk_can_boot_no_ext4.7z/disk_can_boot_no_ext4 is same as  
+disk_can_boot_no_ext4_LinuxCard2.tar.gz/LinuxCard/Original Publication/source/disk   
+```
+sudo apt install libsdl2-dev
+xubuntu200464_umips
+```
 * https://dmitry.gr/?r=05.Projects&proj=33.%20LinuxCard
 ``` 
 make CPU=pc
